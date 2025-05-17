@@ -4,10 +4,6 @@ resource "azurerm_resource_group" "main" {
   tags     = local.tags
 }
 
-data "azurerm_key_vault" "existing" {
-  name                = var.kv_name
-  resource_group_name = var.kv_rg_name
-}
 
 module "sql" {
   source                    = "./modules/sql"
@@ -17,7 +13,8 @@ module "sql" {
   sql_db_name               = local.sql_db_name
   sql_sku                   = var.sql_sku
   sql_fwr_name              = var.sql_fwr_name
-  kv_id                     = data.azurerm_key_vault.existing.id
+  kv_name                   = var.kv_name
+  kv_rg_name                = var.kv_rg_name
   sql_admin_secret_name     = var.sql_admin_secret_name
   sql_admin_secret_password = var.sql_admin_secret_password
   allowed_ip_address        = var.allowed_ip_address

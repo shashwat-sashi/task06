@@ -37,12 +37,17 @@ resource "azurerm_mssql_database" "sql_db" {
 resource "azurerm_key_vault_secret" "admin_username" {
   name         = var.sql_admin_secret_name
   value        = "adminUser"
-  key_vault_id = var.kv_id
+  key_vault_id = data.azurerm_key_vault.existing.id
 }
 
 resource "azurerm_key_vault_secret" "admin_password" {
   name         = var.sql_admin_secret_password
   value        = random_password.sql_password.result
-  key_vault_id = var.kv_id
+  key_vault_id = data.azurerm_key_vault.existing.id
   depends_on   = [random_password.sql_password]
+}
+
+data "azurerm_key_vault" "existing" {
+  name                = var.kv_name
+  resource_group_name = var.kv_rg_name
 }

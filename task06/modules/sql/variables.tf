@@ -28,11 +28,6 @@ variable "sql_fwr_name" {
   description = "Name for the SQL Server firewall rule"
 }
 
-variable "kv_id" {
-  type        = string
-  description = "ID of the existing Key Vault where secrets will be stored"
-}
-
 variable "sql_admin_secret_name" {
   type        = string
   description = "Name of the Key Vault secret to store SQL admin username"
@@ -51,4 +46,14 @@ variable "allowed_ip_address" {
 variable "tags" {
   type        = map(string)
   description = "Tags to apply to resources"
+}
+
+variable "kv_rg_name" {
+  description = "Resource Group name of existing Key Vault"
+  type        = string
+}
+
+variable "kv_name" {
+  description = "Name of existing Key Vault"
+  type        = string
 }
