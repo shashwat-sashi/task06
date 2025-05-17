@@ -32,10 +32,10 @@ resource "azurerm_mssql_firewall_rule" "allow_my_ip" {
 }
 
 resource "azurerm_mssql_database" "sql_db" {
-  name                = var.sql_db_name
-  server_id           = azurerm_mssql_server.sql.id
-  sku_name            = var.sql_sku
-  tags                = var.tags
+  name      = var.sql_db_name
+  server_id = azurerm_mssql_server.sql.id
+  sku_name  = var.sql_sku
+  tags      = var.tags
 }
 
 resource "azurerm_key_vault_secret" "admin_username" {
