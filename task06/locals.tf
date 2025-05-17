@@ -3,9 +3,9 @@ locals {
     Creator = var.student_email
   }
 
-  rg_name         = "${var.resources_name_prefix}-rg"
-  sql_server_name = "${var.resources_name_prefix}-sql"
-  sql_db_name     = "${var.resources_name_prefix}-sql-db"
-  asp_name        = "${var.resources_name_prefix}-asp"
-  app_name        = "${var.resources_name_prefix}-app"
+  rg_name         = format("%s-rg", var.resources_name_prefix)
+  sql_server_name = format("%s-sql", var.resources_name_prefix)
+  sql_db_name     = format("%s-sql-db", var.resources_name_prefix)
+  asp_name        = format("%s-asp", var.resources_name_prefix)
+  app_name        = format("%s-app", var.resources_name_prefix)
 }

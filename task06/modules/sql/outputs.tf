@@ -1,7 +1,19 @@
+data "azurerm_key_vault_secret" "sql_admin_username" {
+  name         = var.sql_admin_secret_name
+  key_vault_id = var.kv_id
+}
+
+# Use the secret directly in the connection string
 output "sql_connection_string" {
   description = "SQL Connection String for ADO.NET clients"
-  value       = "Server=tcp:${azurerm_mssql_server.sql.fully_qualified_domain_name},1433;Initial Catalog=${azurerm_mssql_database.sql_db.name};Persist Security Info=False;User ID=${local.sql_admin_username};Password=${random_password.sql_password.result};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
-  sensitive   = true
+  value = format(
+    "Server=tcp:%s,1433;Initial Catalog=%s;Persist Security Info=False;User ID=%s;Password=%s;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
+    azurerm_mssql_server.sql.fully_qualified_domain_name,
+    azurerm_mssql_database.sql_db.name,
+    data.azurerm_key_vault_secret.sql_admin_username.value,
+    random_password.sql_password.result
+  )
+  sensitive = true
 }
 
 output "sql_server_fqdn" {
