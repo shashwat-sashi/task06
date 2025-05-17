@@ -1,0 +1,11 @@
+locals {
+  tags = {
+    Creator = var.student_email
+  }
+
+  rg_name         = "${var.resources_name_prefix}-rg"
+  sql_server_name = "${var.resources_name_prefix}-sql"
+  sql_db_name     = "${var.resources_name_prefix}-sql-db"
+  asp_name        = "${var.resources_name_prefix}-asp"
+  app_name        = "${var.resources_name_prefix}-app"
+}
