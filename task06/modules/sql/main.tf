@@ -3,16 +3,12 @@ resource "random_password" "sql_password" {
   special = true
 }
 
-locals {
-  sql_admin_username = "sqladminuser"
-}
-
 resource "azurerm_mssql_server" "sql" {
   name                         = var.sql_server_name
   resource_group_name          = var.rg_name
   location                     = var.location
   version                      = "12.0"
-  administrator_login          = local.sql_admin_username
+  administrator_login          = "adminUser"
   administrator_login_password = random_password.sql_password.result
   tags                         = var.tags
 }
@@ -40,7 +36,7 @@ resource "azurerm_mssql_database" "sql_db" {
 
 resource "azurerm_key_vault_secret" "admin_username" {
   name         = var.sql_admin_secret_name
-  value        = local.sql_admin_username
+  value        = "adminUser"
   key_vault_id = var.kv_id
 }
 
@@ -48,4 +44,5 @@ resource "azurerm_key_vault_secret" "admin_password" {
   name         = var.sql_admin_secret_password
   value        = random_password.sql_password.result
   key_vault_id = var.kv_id
+  depends_on   = [random_password.sql_password]
 }

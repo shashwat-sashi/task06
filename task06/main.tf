@@ -11,7 +11,7 @@ data "azurerm_key_vault" "existing" {
 
 module "sql" {
   source                    = "./modules/sql"
-  location                  = var.location
+  location                  = azurerm_resource_group.main.location
   rg_name                   = azurerm_resource_group.main.name
   sql_server_name           = local.sql_server_name
   sql_db_name               = local.sql_db_name
