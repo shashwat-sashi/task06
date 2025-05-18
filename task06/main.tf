@@ -10,6 +10,7 @@ module "sql" {
   location                  = azurerm_resource_group.main.location
   rg_name                   = azurerm_resource_group.main.name
   sql_server_name           = local.sql_server_name
+  sql_admin_username        = var.sql_admin_username
   sql_db_name               = local.sql_db_name
   sql_sku                   = var.sql_sku
   sql_fwr_name              = var.sql_fwr_name

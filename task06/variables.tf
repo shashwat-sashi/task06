@@ -57,3 +57,8 @@ variable "allowed_ip_address" {
   description = "IP address allowed to access SQL Server"
   type        = string
 }
+
+variable "sql_admin_username" {
+  description = "Name of sql admin username"
+  type        = string
+}

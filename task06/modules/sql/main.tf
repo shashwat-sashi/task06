@@ -8,7 +8,7 @@ resource "azurerm_mssql_server" "sql" {
   resource_group_name          = var.rg_name
   location                     = var.location
   version                      = "12.0"
-  administrator_login          = "adminUser"
+  administrator_login          = var.sql_admin_username
   administrator_login_password = random_password.sql_password.result
   tags                         = var.tags
 }
@@ -36,7 +36,7 @@ resource "azurerm_mssql_database" "sql_db" {
 
 resource "azurerm_key_vault_secret" "admin_username" {
   name         = var.sql_admin_secret_name
-  value        = "adminUser"
+  value        = var.sql_admin_username
   key_vault_id = data.azurerm_key_vault.existing.id
 }
 

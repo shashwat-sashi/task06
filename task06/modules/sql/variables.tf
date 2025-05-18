@@ -57,3 +57,8 @@ variable "kv_name" {
   description = "Name of existing Key Vault"
   type        = string
 }
+
+variable "sql_admin_username" {
+  description = "Name of sql admin username"
+  type        = string
+}

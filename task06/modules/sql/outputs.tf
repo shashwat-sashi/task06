@@ -5,7 +5,7 @@ output "sql_connection_string" {
     "Server=tcp:%s,1433;Initial Catalog=%s;Persist Security Info=False;User ID=%s;Password=%s;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
     azurerm_mssql_server.sql.fully_qualified_domain_name,
     azurerm_mssql_database.sql_db.name,
-    "adminUser",
+    var.sql_admin_username,
     random_password.sql_password.result
   )
   sensitive = true
